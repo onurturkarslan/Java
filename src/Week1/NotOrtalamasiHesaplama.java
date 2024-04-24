@@ -3,7 +3,7 @@ package Week1;
 import java.util.Scanner;
 
 
-public class Notortalamasihesaplama {
+public class NotOrtalamasiHesaplama {
     public static void main(String[] args) {
 
         //Değişkenlerimizi oluşturalım.
