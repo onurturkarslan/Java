@@ -9,7 +9,6 @@ public class BurcBulma {
 
         //Değişkenlerimiz oluşturalım.
         int month, day;
-        String burc = "";
 
 
         //Karşıdan girdilerimizi alan kodları yazalım.
