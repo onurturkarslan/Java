@@ -2,7 +2,7 @@ package Week1;
 
 import java.util.Scanner;
 
-public class CiftVeDortunKatlarıToplami {
+public class CiftVeDortunKatlariToplami {
     public static void main(String[] args) {
         Scanner girdi = new Scanner(System.in);
         int n;
