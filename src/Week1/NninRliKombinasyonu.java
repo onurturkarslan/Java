@@ -1,7 +1,7 @@
 package Week1;
 import java.util.Scanner;
 
-public class NinRliKombinasyonu {
+public class NninRliKombinasyonu {
     public static void main(String[] args) {
         Scanner girdi = new Scanner(System.in);
         int n, r, resault;
