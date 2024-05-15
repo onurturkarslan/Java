@@ -1,16 +1,14 @@
 package Week3;
-
-
-//Rastgele bir şekilde mayınları yerleştirebilmek ve girdilerimiz için, Random ve Scanner sınıflarımızı oluşturalım.
+//Revize
+// Rastgele bir şekilde mayınları yerleştirebilmek ve girdilerimiz için, Random ve Scanner sınıflarımızı oluşturalım.
 
 import java.util.Random;
 import java.util.Scanner;
 
-
-//MineSweeper klasımızı oluşturalım.
+// MineSweeper klasımızı oluşturalım.
 public class MineSweeper {
 
-    //Değişkenlerimizi tanımlayalım.
+    // Değişkenlerimizi tanımlayalım.
     private final char MINE = '*';
     private final char UNOPENED = '-';
     private final int[] dx = {0, 0, 1, -1, 1, -1, 1, -1};
@@ -22,6 +20,7 @@ public class MineSweeper {
     private int cols;
     private int totalMines;
     private int openedCount;
+    private boolean gameOver; // Oyunun bitip bitmediğini kontrol eden değişken
 
     public MineSweeper(int rows, int cols) {
         this.rows = rows;
@@ -31,6 +30,7 @@ public class MineSweeper {
         this.isMine = new boolean[rows][cols];
         this.totalMines = rows * cols / 4; // 1/4 of total cells
         this.openedCount = 0;
+        this.gameOver = false; // Oyunun başlangıçta bitmediğini belirtir
         initializeBoard();
         placeMines();
     }
@@ -43,7 +43,7 @@ public class MineSweeper {
         }
     }
 
-    //Mayınları oluşturalım.
+    // Mayınları oluşturalım.
     private void placeMines() {
         Random rand = new Random();
         int minesPlaced = 0;
@@ -70,7 +70,7 @@ public class MineSweeper {
         }
     }
 
-    //Hücrelerin metotu.
+    // Hücrelerin metotu.
     public void openCell(int x, int y) {
         if (!isValid(x, y)) {
             System.out.println("Invalid coordinates. Please enter valid coordinates.");
@@ -88,9 +88,9 @@ public class MineSweeper {
             opened[x][y] = true;
             printMineLocations();
             System.out.println("===============================");
+            gameOver = true; // Oyunun bittiğini belirtir
             return;
         }
-
 
         int minesAround = 0;
         for (int i = 0; i < 8; i++) {
@@ -109,6 +109,7 @@ public class MineSweeper {
             System.out.println("==================================");
             printBoard();
             System.out.println("==================================");
+            gameOver = true; // Oyunun bittiğini belirtir
             return;
         }
         if (minesAround == 0) {
@@ -123,7 +124,7 @@ public class MineSweeper {
         printBoard();
     }
 
-    //Mayınların nerede olduğunu gösteren board metotu.
+    // Mayınların nerede olduğunu gösteren board metotu.
     public void printMineLocations() {
         System.out.println("Mine Locations:");
         for (int i = 0; i < rows; i++) {
@@ -138,9 +139,8 @@ public class MineSweeper {
         }
     }
     public boolean isGameEnded() {
-        return openedCount == rows * cols - totalMines;
+        return openedCount == rows * cols - totalMines || gameOver;
     }
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -157,21 +157,18 @@ public class MineSweeper {
                 continue; // Yeni bir oyun başlatmak için döngüyü tekrar başlat
             }
             MineSweeper mineSweeper = new MineSweeper(rows, cols);
+            System.out.println("==========================================================");
             mineSweeper.printMineLocations();
             System.out.println("==========================================================");
             System.out.println("Game Board:");
             mineSweeper.printBoard();
             System.out.println("==========================================================");
-            while (true) {
+            while (!mineSweeper.isGameEnded()) {
                 System.out.print("Enter the row number: ");
                 int row = scanner.nextInt();
                 System.out.print("Enter the column number: ");
                 int col = scanner.nextInt();
                 mineSweeper.openCell(row, col);
-                // Oyunun bitip bitmediğini kontrol et
-                if (mineSweeper.isGameEnded()) {
-                    break; // Oyun bitti, içteki while döngüsünü kır
-                }
             }
             // Oyun bitince tekrar başlamak isteyip istemediğini sorgula
             while (true) {
