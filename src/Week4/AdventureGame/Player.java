@@ -1,15 +1,19 @@
 package Week4.AdventureGame;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Scanner;
 
 public class Player {
     private int damage;
-    private int healt;
+    private int health;
+    private int originalHealth;
     private int money;
     private String charName;
     private String name;
     private Scanner input = new Scanner(System.in);
     private Inventory inventory;
+    private Set<String> collectedRewards = new HashSet<>();
 
     public Player (String name){
         this.name = name;
@@ -21,7 +25,7 @@ public class Player {
         for (GameChar gameChar : charList){
             System.out.println(gameChar.getName()+
                     "\t Damage :" + gameChar.getDamage()+
-                    "\t Healt :" + gameChar.getHealt()+
+                    "\t Health :" + gameChar.getHealth()+
                     "\t Money :" + gameChar.getMoney());
         }
         System.out.println("-----------------------------------------------------");
@@ -44,7 +48,8 @@ public class Player {
 
     public void initPlayer(GameChar gameChar){
         this.setDamage(gameChar.getDamage());
-        this.setHealt(gameChar.getHealt());
+        this.setHealth(gameChar.getHealth());
+        this.setOriginalHealth(gameChar.getHealth());
         this.setMoney(gameChar.getMoney());
         this.setCharName(gameChar.getName());
 
@@ -53,25 +58,29 @@ public class Player {
         System.out.println("Weapon : " + this.getInventory().getWeapon().getName() +
                 ", Armor : " + this.getInventory().getArmor().getName() +
                 ", Blocked : " + this.getInventory().getArmor().getBlock() +
-                ", Damage : " + this.getDamage() +
-                ", Healt : " + this.getHealt() +
+                ", Damage : " + this.getTotalDamage() +
+                ", Health : " + this.getHealth() +
                 ", Money : " + this.getMoney());
     }
 
-    public int getDamage() {
+    public int getTotalDamage(){
         return damage + this.getInventory().getWeapon().getDamage();
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
-    public int getHealt() {
-        return healt;
+    public int getHealth() {
+        return health;
     }
 
-    public void setHealt(int healt) {
-        this.healt = healt;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getMoney() {
@@ -104,5 +113,29 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getOriginalHealth() {
+        return originalHealth;
+    }
+
+    public void setOriginalHealth(int originalHealth) {
+        this.originalHealth = originalHealth;
+    }
+    public void addReward(String reward) {
+        collectedRewards.add(reward);
+    }
+
+    public boolean hasAllRewards() {
+        return collectedRewards.contains("Food") &&
+                collectedRewards.contains("Firewood") &&
+                collectedRewards.contains("Water") &&
+                collectedRewards.contains("Money") &&
+                collectedRewards.contains("Weapon") &&
+                collectedRewards.contains("Armor");
+    }
+
+    public boolean hasReward(String reward) {
+        return collectedRewards.contains(reward);
     }
 }

@@ -4,14 +4,14 @@ public abstract class GameChar {
     private int id;
     private String name;
     private int damage;
-    private int healt;
+    private int health;
     private int money;
 
-    public GameChar(int id, String name, int damage, int healt, int money) {
+    public GameChar(int id, String name, int damage, int health, int money) {
         this.id = id;
         this.name = name;
         this.damage = damage;
-        this.healt = healt;
+        this.health = health;
         this.money = money;
     }
 
@@ -23,12 +23,12 @@ public abstract class GameChar {
         this.damage = damage;
     }
 
-    public int getHealt() {
-        return healt;
+    public int getHealth() {
+        return health;
     }
 
-    public void setHealt(int healt) {
-        this.healt = healt;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public int getMoney() {
